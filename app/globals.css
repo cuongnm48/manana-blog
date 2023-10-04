@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import "./../styles/header.module.css"; */
+
+@font-face {
+  font-family: "worksans";
+  src: url("./../public/font/Work_Sans/WorkSans-Italic-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "merri";
+  src: url("./../public/font/Merriweather/Merriweather-LightItalic.ttf");
+}
+
+.container-app {
+  min-height: 100vh;
+}
+
+.menu-popup {
+  position: relative;
+}
+
+.menu-popup-child {
+  position: absolute;
+  width: 300px;
+}
+
+.menu-popup-child-block {
+  display: none;
+}
