@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 import {
   Navbar,
@@ -10,17 +10,13 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Tooltip,
   Listbox,
   ListboxItem,
 } from "@nextui-org/react";
-import { ChevronDown, Lock, Activity, Flash, Server, TagUser, Scale } from "./Icon";
+import { ChevronDown, Lock, Activity, Flash, Server, TagUser, Scale } from "../IconNextUI/Icon";
 import { useAppDispatch } from "@/redux/hooks";
 import { setPageTheme } from "@/redux/slice/themeSlice";
+import { useRouter } from "next/navigation";
 
 type NavbarType = {
   theme: string;
@@ -30,8 +26,9 @@ export default function Header(props: NavbarType) {
   const { theme } = props;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const someRef = useRef();
   const dispatch = useAppDispatch();
+  const router = useRouter();
+
   const menuItems = [
     "Profile",
     "Dashboard",
@@ -70,61 +67,74 @@ export default function Header(props: NavbarType) {
         <NavbarBrand>
           <p className="font-bold text-inherit">Ma nana</p>
         </NavbarBrand>
-        <Dropdown
-          className="border-1"
-          isOpen={isOpen}
-          onOpenChange={(open) => setIsOpen(open)}
+        <div
+          className="menu-popup"
           onMouseLeave={() => setIsOpen(false)}
+          onMouseEnter={() => setIsOpen(true)}
         >
-          <DropdownTrigger>
-            <Button
-              disableRipple
-              className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-              radius="sm"
-              variant="light"
-              onMouseEnter={() => setIsOpen(true)}
-            >
-              <NavbarItem>Features</NavbarItem>
-            </Button>
-          </DropdownTrigger>
-          <DropdownMenu
-            aria-label="ACME features"
-            className="w-[340px]"
-            itemClasses={{
-              base: "gap-4",
+          <Button
+            aria-label="1"
+            className="peer p-0 bg-transparent data-[hover=true]:bg-transparent text-medium"
+            radius="sm"
+            variant="light"
+            onClick={() => {
+              setIsOpen((prev) => !prev);
+              router.push("/documents");
             }}
-            variant="bordered"
           >
-            <DropdownItem
-              key="autoscaling"
-              description="ACME scales apps to meet user demand, automagically, based on load."
-              startContent={icons.scale}
+            Tài liệu
+          </Button>
+          <div
+            className={`w-full border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100 ${
+              isOpen ? "menu-popup-child" : "menu-popup-child-block"
+            } `}
+            style={{ backgroundColor: theme === "light" ? "white" : "black" }}
+          >
+            <Listbox
+              aria-label="1"
+              color="default"
+              variant="solid"
+              className={`w-full max-w-[300px] `}
             >
-              Autoscaling
-            </DropdownItem>
-            <DropdownItem
-              key="usage_metrics"
-              description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
-              startContent={icons.activity}
-            >
-              Usage Metrics
-            </DropdownItem>
-            <DropdownItem
-              key="production_ready"
-              description="ACME runs on ACME, join us and others serving requests at web scale."
-              startContent={icons.flash}
-            >
-              Production Ready
-            </DropdownItem>
-            <DropdownItem
-              key="99_uptime"
-              description="Applications stay on the grid with high availability and high uptime guarantees."
-              startContent={icons.server}
-            >
-              +99% Uptime
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+              <ListboxItem
+                key="autoscaling"
+                description="Tổng hợp tài liệu học tập và ôn thi topik tất cả các cấp độ"
+                startContent={icons.scale}
+                className="gap-3"
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push("/documents/exercises");
+                }}
+              >
+                Bài tập
+              </ListboxItem>
+              <ListboxItem
+                key="copy"
+                description="Đề thi topik tham khảo"
+                startContent={icons.activity}
+                className="gap-3"
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push("/documents/exams");
+                }}
+              >
+                Đề thi tham khảo
+              </ListboxItem>
+              <ListboxItem
+                key="edit"
+                description="Tài liệu sách hàn ngữ"
+                startContent={icons.server}
+                className="gap-3"
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push("/documents/books");
+                }}
+              >
+                Sách tham khảo
+              </ListboxItem>
+            </Listbox>
+          </div>
+        </div>
 
         <NavbarItem>
           <Link color="foreground" href="#">

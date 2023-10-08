@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @import "./../styles/header.module.css"; */
-
 @font-face {
   font-family: "worksans";
   src: url("./../public/font/Work_Sans/WorkSans-Italic-VariableFont_wght.ttf");

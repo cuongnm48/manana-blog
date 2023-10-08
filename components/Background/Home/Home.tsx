@@ -9,7 +9,7 @@ export default function HomeBackground(props: HomeProps) {
         <div className="border-b pb-5">
           <div className="max-w-xl">
             <p className="tracking-tight font-display text-4xl font-semibold font-merri">
-              Welcome to Ma nana's blog!
+              {`Welcome to Ma nana 's blog!`}
             </p>
             <p className="text-slate-600 mt-4 text-lg tracking-tight">
               Advice, Strategies, Insights and Stories for the success of companies, schools and
